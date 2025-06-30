@@ -47,8 +47,37 @@ export default function Home() {
     [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   ]);
+  const [positionAI, setPositionAI] = useState([
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ]);
+  const resetBoard = () => {
+    const newMazeBoard = structuredClone(mazeBoard);
+    for (let ky = 0; ky < 9; ky++) {
+      for (let kx = 0; kx < 11; kx++) {
+        newMazeBoard[ky][kx] = 0;
+      }
+    }
+    for (let ky = 0; ky < 4; ky++) {
+      for (let kx = 0; kx < 5; kx++) {
+        newMazeBoard[ky * 2 + 1][kx * 2 + 1] = 1;
+      }
+    }
+    setMazeBoard(newMazeBoard);
+  };
+
   const clickMakeMaze = () => {
     if (mazeBoard.flat().filter((i) => i === 1).length === 20) {
+      const newPositionAI = structuredClone(positionAI);
+      newPositionAI[0][0] = 1;
+      setPositionAI(newPositionAI);
       const newMazeBoard = structuredClone(mazeBoard);
       for (const [ky, kx] of makeWallFunction(newMazeBoard)) {
         newMazeBoard[ky][kx] = 1;
@@ -60,6 +89,15 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
+      <div
+        className={styles.makeResetButton}
+        onClick={(e) => {
+          e.preventDefault();
+          resetBoard();
+        }}
+      >
+        リセット
+      </div>
       <div
         className={styles.makeMazeButton}
         onClick={(e) => {
@@ -76,7 +114,9 @@ export default function Home() {
               className={styles.cell}
               key={`${x}-${y}`}
               style={{ backgroundColor: mazeBoard[y][x] === 0 ? `#fff` : `#000` }}
-            />
+            >
+              <div className={styles.userAI} style={{ opacity: positionAI[y][x] === 1 ? 1 : 0 }} />
+            </div>
           )),
         )}
       </div>
