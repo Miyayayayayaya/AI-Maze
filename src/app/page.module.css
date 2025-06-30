@@ -9,10 +9,9 @@
 }
 
 .board {
-  width: 450px;
-  height: 370px;
+  width: 520px;
+  height: 440px;
   background-color: #fff;
-  border: solid 5px #000;
 }
 
 .cell {
@@ -39,6 +38,13 @@
   border: solid 3px #000;
 }
 
+.makeRunButton {
+  width: 80px;
+  height: 40px;
+  background-color: #fff;
+  border: solid 3px #000;
+}
+
 .traceAI {
   width: 40px;
   height: 40px;
@@ -51,4 +57,13 @@
   border-top: solid 15px transparent;
   border-bottom: solid 15px transparent;
   border-left: solid 15px#ff0000;
+}
+
+.buttonComponent {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 450px;
+  height: 60px;
+  border: solid 5px #000;
 }
