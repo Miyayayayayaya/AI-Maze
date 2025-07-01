@@ -4,13 +4,13 @@ import { makeWallFunction } from '../utils/utils';
 const initialMazeBoard = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
@@ -32,6 +32,7 @@ export const useMaze = () => {
   const [positionAI, setPositionAI] = useState<number[][]>(initialPositionAI);
   const [gameStart, setGameStart] = useState(false);
   const [angleAI, setAngleAI] = useState(40);
+  const [speedCustom, setSpeedCustom] = useState(1000);
   const clickAIRun = () => {
     console.log('AIRun押される');
     const newPositionAI = structuredClone(positionAI);
@@ -87,8 +88,10 @@ export const useMaze = () => {
     boardState: mazeBoard,
     positionState: positionAI,
     angleState: angleAI,
+    speedState: speedCustom,
     setAngleAI,
     setMazeBoard,
     setPositionAI,
+    setSpeedCustom,
   };
 };

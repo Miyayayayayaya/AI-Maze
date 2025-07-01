@@ -2,6 +2,7 @@
 import { useEffect } from 'react';
 import Board from '../app/components/Board';
 import MakeReset from '../app/components/MakeReset';
+import SpeedCustom from '../app/components/SpeedCustom';
 import { useMaze } from '../app/hooks/useMazeState';
 import { useMemory } from '../app/hooks/useMemory';
 import { handDirection } from '../app/utils/utils';
@@ -14,9 +15,11 @@ export default function Home() {
     positionState,
     gameState,
     angleState,
+    speedState,
     setAngleAI,
     setMazeBoard,
     setPositionAI,
+    setSpeedCustom,
     clickResetBoard,
     clickAIRun,
   } = useMaze();
@@ -133,7 +136,7 @@ export default function Home() {
       setMazeBoard(newMazeBoard);
       setAngleAI(newAngleAI);
       setPositionAI(newPositionAI);
-    }, 600);
+    }, speedState);
     return () => clearInterval(interval);
   }, [
     angleState,
@@ -143,6 +146,7 @@ export default function Home() {
     angleRef,
     positionRef,
     mazeRef,
+    speedState,
     setMazeBoard,
     setAngleAI,
     setPositionAI,
@@ -154,6 +158,7 @@ export default function Home() {
         <MakeRun onClick={clickAIRun} />
       </div>
       <Board mazeBoard={boardState} positionAI={positionState} angleAI={angleState} />
+      <SpeedCustom speedCustom={speedState} setSpeedCustom={setSpeedCustom} />
     </div>
   );
 }
