@@ -1,14 +1,9 @@
 'use client';
 import { useEffect } from 'react';
-import Board from '../app/components/Board';
-import MakeReset from '../app/components/MakeReset';
-import { useMaze } from '../app/hooks/useMazeState';
-import { useMemory } from '../app/hooks/useMemory';
-import { handDirection } from '../app/utils/utils';
-import MakeRun from './components/MakeRunButton';
-import styles from './page.module.css';
-
-export default function Home() {
+import { useMaze } from '../hooks/useMazeState';
+import { useMemory } from '../hooks/useMemory';
+import { handDirection } from '../utils/utils';
+export const useAIMove = () => {
   const {
     boardState,
     positionState,
@@ -17,8 +12,6 @@ export default function Home() {
     setAngleAI,
     setMazeBoard,
     setPositionAI,
-    clickResetBoard,
-    clickAIRun,
   } = useMaze();
   const { angleRef, positionRef, mazeRef } = useMemory();
   useEffect(() => {
@@ -50,7 +43,6 @@ export default function Home() {
           ) {
             newPositionAI[ky][kx] = 0;
             newPositionAI[ky + ry][kx + rx] = 1;
-            newAngleAI;
           }
           if (
             positionState[ky][kx] === 1 &&
@@ -129,7 +121,6 @@ export default function Home() {
           }
         }
       }
-      console.log(angleRef);
       setMazeBoard(newMazeBoard);
       setAngleAI(newAngleAI);
       setPositionAI(newPositionAI);
@@ -147,13 +138,4 @@ export default function Home() {
     setAngleAI,
     setPositionAI,
   ]);
-  return (
-    <div className={styles.container}>
-      <div className={styles.buttonComponent}>
-        <MakeReset onClick={clickResetBoard} />
-        <MakeRun onClick={clickAIRun} />
-      </div>
-      <Board mazeBoard={boardState} positionAI={positionState} angleAI={angleState} />
-    </div>
-  );
-}
+};

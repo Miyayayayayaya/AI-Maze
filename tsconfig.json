@@ -17,6 +17,13 @@
     "incremental": true,
     "plugins": [{ "name": "next" }]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "stylelint.config.js"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "stylelint.config.js",
+    "src/app/utils"
+  ],
   "exclude": ["node_modules", ".next"]
 }

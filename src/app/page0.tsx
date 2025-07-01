@@ -50,7 +50,6 @@ export default function Home() {
           ) {
             newPositionAI[ky][kx] = 0;
             newPositionAI[ky + ry][kx + rx] = 1;
-            newAngleAI;
           }
           if (
             positionState[ky][kx] === 1 &&
@@ -129,7 +128,6 @@ export default function Home() {
           }
         }
       }
-      console.log(angleRef);
       setMazeBoard(newMazeBoard);
       setAngleAI(newAngleAI);
       setPositionAI(newPositionAI);

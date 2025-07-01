@@ -1,69 +1,138 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  min-height: 100vh;
-  padding: 0 0.5rem;
+@media screen and (width>480px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    min-height: 100vh;
+    padding: 0 0.5rem;
+  }
+
+  .board {
+    width: 520px;
+    height: 440px;
+    background-color: #fff;
+  }
+
+  .cell {
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #000;
+  }
+
+  .makeResetButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 130px;
+    height: 40px;
+    background-color: rgb(184 184 184);
+    border: solid 3px #000;
+  }
+
+  .makeRunButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 40px;
+    background-color: rgb(184 184 184);
+    border: solid 3px #000;
+  }
+
+  .traceAI {
+    width: 40px;
+    height: 40px;
+    background-color: #e0ff93;
+  }
+
+  .userAI {
+    width: 0;
+    height: 0;
+    border-top: solid 15px transparent;
+    border-bottom: solid 15px transparent;
+    border-left: solid 15px#ff0000;
+  }
+
+  .buttonComponent {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 450px;
+    height: 60px;
+  }
 }
 
-.board {
-  width: 520px;
-  height: 440px;
-  background-color: #fff;
-}
+@media screen and (width<=480px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    min-height: 100vh;
+  }
 
-.cell {
-  float: left;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  background-color: #000;
-}
+  .board {
+    width: 39vh;
+    height: 33vh;
+    background-color: #fff;
+  }
 
-.makeMazeButton {
-  width: 80px;
-  height: 40px;
-  background-color: #fff;
-  border: solid 3px #000;
-}
+  .cell {
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3vh;
+    height: 3vh;
+    background-color: #000;
+  }
 
-.makeResetButton {
-  width: 80px;
-  height: 40px;
-  background-color: #fff;
-  border: solid 3px #000;
-}
+  .makeResetButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15vh;
+    height: 5vh;
+    background-color: rgb(184 184 184);
+    border: solid 3px #000;
+  }
 
-.makeRunButton {
-  width: 80px;
-  height: 40px;
-  background-color: #fff;
-  border: solid 3px #000;
-}
+  .makeRunButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 8vh;
+    height: 5vh;
+    background-color: rgb(184 184 184);
+    border: solid 3px #000;
+  }
 
-.traceAI {
-  width: 40px;
-  height: 40px;
-  background-color: #e0ff93;
-}
+  .traceAI {
+    width: 40px;
+    height: 40px;
+    background-color: #e0ff93;
+  }
 
-.userAI {
-  width: 0;
-  height: 0;
-  border-top: solid 15px transparent;
-  border-bottom: solid 15px transparent;
-  border-left: solid 15px#ff0000;
-}
+  .userAI {
+    width: 0;
+    height: 0;
+    border-top: solid 1vh transparent;
+    border-bottom: solid 1vh transparent;
+    border-left: solid 1vh#ff0000;
+  }
 
-.buttonComponent {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  width: 450px;
-  height: 60px;
-  border: solid 5px #000;
+  .buttonComponent {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 50vh;
+    height: 10vh;
+  }
 }
