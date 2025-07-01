@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './page.module.css';
 const directions = [
   [-1, 0], //上
@@ -33,20 +33,20 @@ const makeWallFunction = (mazeBoard: number[][]) => {
 };
 const handDirection = (angleAI: number) => {
   //右向き
-  if (angleAI === 0) {
-    return [directions[0], directions[1], directions[2]];
+  if (angleAI % 4 === 0) {
+    return [directions[0], directions[1], directions[2], directions[3]];
   }
   //下向き
-  if (angleAI === 1) {
-    return [directions[1], directions[2], directions[3]];
+  if (angleAI % 4 === 1) {
+    return [directions[1], directions[2], directions[3], directions[0]];
   }
   //左向き
-  if (angleAI === 2) {
-    return [directions[2], directions[3], directions[0]];
+  if (angleAI % 4 === 2) {
+    return [directions[2], directions[3], directions[0], directions[1]];
   }
   //上向き
   else {
-    return [directions[3], directions[0], directions[1]];
+    return [directions[3], directions[0], directions[1], directions[2]];
   }
 };
 
@@ -78,6 +78,133 @@ export default function Home() {
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   ]);
   const [angleAI, setAngleAI] = useState(0);
+  const [gameStart, setGameStart] = useState(false);
+  const angleRef = useRef(angleAI);
+  const positionRef = useRef(positionAI);
+  const mazeRef = useRef(mazeBoard);
+  const clickAIRun = () => {
+    const newPositionAI = structuredClone(positionAI);
+    if (positionAI.flat().filter((i) => i === 0).length === 143) {
+      newPositionAI[1][1] = 1;
+    }
+    setGameStart(true);
+    setPositionAI(newPositionAI);
+  };
+  useEffect(() => {
+    if (!gameStart) return;
+    if (positionAI[9][11] === 1) return;
+    const interval = setInterval(() => {
+      angleRef.current = angleAI;
+      positionRef.current = positionAI;
+      mazeRef.current = mazeBoard;
+      let newAngleAI = angleAI;
+      const directionAI = handDirection(angleRef.current);
+      const newPositionAI = structuredClone(positionRef.current);
+      const newMazeBoard = structuredClone(mazeRef.current);
+      const ty = directionAI[0][0];
+      const tx = directionAI[0][1];
+      const ry = directionAI[1][0];
+      const rx = directionAI[1][1];
+      const by = directionAI[2][0];
+      const bx = directionAI[2][1];
+      const ly = directionAI[3][0];
+      const lx = directionAI[3][1];
+      for (let ky = 0; ky < 11; ky++) {
+        for (let kx = 0; kx < 13; kx++) {
+          if (
+            positionAI[ky][kx] === 1 &&
+            mazeBoard[ky + ty][kx + tx] === 1 &&
+            mazeBoard[ky + ry][kx + rx] === 0 &&
+            mazeBoard[ky + by][kx + bx] === 1
+          ) {
+            newPositionAI[ky][kx] = 0;
+            newPositionAI[ky + ry][kx + rx] = 1;
+          }
+          if (
+            positionAI[ky][kx] === 1 &&
+            mazeBoard[ky + ty][kx + tx] === 1 &&
+            mazeBoard[ky + ry][kx + rx] === 1 &&
+            mazeBoard[ky + by][kx + bx] === 1
+          ) {
+            newPositionAI[ky][kx] = 0;
+            newPositionAI[ky + ly][kx + lx] = 1;
+            newAngleAI++;
+            newAngleAI++;
+          }
+          if (
+            positionAI[ky][kx] === 1 &&
+            mazeBoard[ky + ty][kx + tx] === 0 &&
+            mazeBoard[ky + ry][kx + rx] === 1 &&
+            mazeBoard[ky + by][kx + bx] === 1
+          ) {
+            newPositionAI[ky][kx] = 0;
+            newPositionAI[ky + ty][kx + tx] = 1;
+            newAngleAI--;
+          }
+          if (
+            positionAI[ky][kx] === 1 &&
+            mazeBoard[ky + ty][kx + tx] === 1 &&
+            mazeBoard[ky + ry][kx + rx] === 1 &&
+            mazeBoard[ky + by][kx + bx] === 0
+          ) {
+            newPositionAI[ky][kx] = 0;
+            newPositionAI[ky + by][kx + bx] = 1;
+            newAngleAI++;
+          }
+          if (
+            positionAI[ky][kx] === 1 &&
+            mazeBoard[ky + ty][kx + tx] === 0 &&
+            mazeBoard[ky + ry][kx + rx] === 0 &&
+            mazeBoard[ky + by][kx + bx] === 1
+          ) {
+            newPositionAI[ky][kx] = 0;
+            newPositionAI[ky + ty][kx + tx] = 1;
+            newAngleAI--;
+          }
+          if (
+            positionAI[ky][kx] === 1 &&
+            mazeBoard[ky + ty][kx + tx] === 0 &&
+            mazeBoard[ky + ry][kx + rx] === 1 &&
+            mazeBoard[ky + by][kx + bx] === 0
+          ) {
+            newPositionAI[ky][kx] = 0;
+            newPositionAI[ky + ty][kx + tx] = 1;
+            newAngleAI--;
+          }
+          if (
+            positionAI[ky][kx] === 1 &&
+            mazeBoard[ky + ty][kx + tx] === 1 &&
+            mazeBoard[ky + ry][kx + rx] === 0 &&
+            mazeBoard[ky + by][kx + bx] === 0
+          ) {
+            newPositionAI[ky][kx] = 0;
+            newPositionAI[ky + ry][kx + rx] = 1;
+          }
+          if (
+            positionAI[ky][kx] === 1 &&
+            mazeBoard[ky + ty][kx + tx] === 0 &&
+            mazeBoard[ky + ry][kx + rx] === 0 &&
+            mazeBoard[ky + by][kx + bx] === 0
+          ) {
+            newPositionAI[ky][kx] = 0;
+            newPositionAI[ky + ty][kx + tx] = 1;
+            newAngleAI--;
+          }
+          if (positionAI[ky][kx] === 1 && mazeBoard[ky + ry][kx + rx] === 3) {
+            newPositionAI[ky][kx] = 0;
+            newPositionAI[ky + ry][kx + rx] = 1;
+            newMazeBoard[ky + ry][kx + rx] = 4;
+          }
+        }
+      }
+      setMazeBoard(newMazeBoard);
+      setAngleAI(newAngleAI);
+      setPositionAI(newPositionAI);
+    }, 600);
+
+    return () => clearInterval(interval);
+  }, [angleAI, positionAI, mazeBoard, gameStart]);
+
   const clickResetBoard = () => {
     const newMazeBoard = structuredClone(mazeBoard);
     const newPositionAI = structuredClone(positionAI);
@@ -103,116 +230,12 @@ export default function Home() {
     }
     for (let ky = 0; ky < 11; ky++) {
       for (let kx = 0; kx < 13; kx++) {
-        if (newPositionAI[ky][kx] === 1) {
-          newPositionAI[ky][kx] === 0;
-        }
+        newPositionAI[ky][kx] = 0;
       }
     }
-    newPositionAI[1][1] = 1;
+    setGameStart(false);
     setPositionAI(newPositionAI);
     setMazeBoard(newMazeBoard);
-  };
-  let newAngleAI = angleAI;
-  const clickAIRun = () => {
-    const directionAI = handDirection(angleAI);
-    const newPositionAI = structuredClone(positionAI);
-    const newMazeBoard = structuredClone(mazeBoard);
-    const ty = directionAI[0][0];
-    const tx = directionAI[0][1];
-    const ry = directionAI[1][0];
-    const rx = directionAI[1][1];
-    const by = directionAI[2][0];
-    const bx = directionAI[2][1];
-
-    for (let ky = 0; ky < 11; ky++) {
-      for (let kx = 0; kx < 13; kx++) {
-        if (
-          positionAI[ky][kx] === 1 &&
-          mazeBoard[ky + ty][kx + tx] === 1 &&
-          mazeBoard[ky + ry][kx + rx] === 0 &&
-          mazeBoard[ky + by][kx + bx] === 1
-        ) {
-          newPositionAI[ky][kx] = 0;
-          newPositionAI[ky + ry][kx + rx] = 1;
-        }
-        if (
-          positionAI[ky][kx] === 1 &&
-          mazeBoard[ky + ty][kx + tx] === 1 &&
-          mazeBoard[ky + ry][kx + rx] === 1 &&
-          mazeBoard[ky + by][kx + bx] === 1
-        ) {
-          newAngleAI++;
-          newAngleAI++;
-        }
-        if (
-          positionAI[ky][kx] === 1 &&
-          mazeBoard[ky + ty][kx + tx] === 0 &&
-          mazeBoard[ky + ry][kx + rx] === 1 &&
-          mazeBoard[ky + by][kx + bx] === 1
-        ) {
-          newPositionAI[ky][kx] = 0;
-          newPositionAI[ky + ty][kx + tx] = 1;
-          newAngleAI--;
-        }
-        if (
-          positionAI[ky][kx] === 1 &&
-          mazeBoard[ky + ty][kx + tx] === 1 &&
-          mazeBoard[ky + ry][kx + rx] === 1 &&
-          mazeBoard[ky + by][kx + bx] === 0
-        ) {
-          newPositionAI[ky][kx] = 0;
-          newPositionAI[ky + by][kx + bx] = 1;
-          newAngleAI++;
-        }
-        if (
-          positionAI[ky][kx] === 1 &&
-          mazeBoard[ky + ty][kx + tx] === 0 &&
-          mazeBoard[ky + ry][kx + rx] === 0 &&
-          mazeBoard[ky + by][kx + bx] === 1
-        ) {
-          newPositionAI[ky][kx] = 0;
-          newPositionAI[ky + ty][kx + tx] = 1;
-          newAngleAI--;
-        }
-        if (
-          positionAI[ky][kx] === 1 &&
-          mazeBoard[ky + ty][kx + tx] === 0 &&
-          mazeBoard[ky + ry][kx + rx] === 1 &&
-          mazeBoard[ky + by][kx + bx] === 0
-        ) {
-          newPositionAI[ky][kx] = 0;
-          newPositionAI[ky + ty][kx + tx] = 1;
-          newAngleAI--;
-        }
-        if (
-          positionAI[ky][kx] === 1 &&
-          mazeBoard[ky + ty][kx + tx] === 1 &&
-          mazeBoard[ky + ry][kx + rx] === 0 &&
-          mazeBoard[ky + by][kx + bx] === 0
-        ) {
-          newPositionAI[ky][kx] = 0;
-          newPositionAI[ky + ry][kx + rx] = 1;
-        }
-        if (
-          positionAI[ky][kx] === 1 &&
-          mazeBoard[ky + ty][kx + tx] === 0 &&
-          mazeBoard[ky + ry][kx + rx] === 0 &&
-          mazeBoard[ky + by][kx + bx] === 0
-        ) {
-          newPositionAI[ky][kx] = 0;
-          newPositionAI[ky + ty][kx + tx] = 1;
-          newAngleAI--;
-        }
-        if (positionAI[ky][kx] === 1 && mazeBoard[ky + ry][kx + rx] === 3) {
-          newPositionAI[ky][kx] = 0;
-          newPositionAI[ky + ry][kx + rx] = 1;
-          newMazeBoard[ky + ry][kx + rx] = 4;
-        }
-      }
-    }
-    setMazeBoard(newMazeBoard);
-    setAngleAI(newAngleAI);
-    setPositionAI(newPositionAI);
   };
 
   const clickMakeMaze = () => {
