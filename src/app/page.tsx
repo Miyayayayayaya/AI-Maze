@@ -26,7 +26,7 @@ export default function Home() {
   const { angleRef, positionRef, mazeRef } = useMemory();
   useEffect(() => {
     if (!gameState) return;
-    if (positionState[9][11] === 1) return;
+    if (positionState[13][17] === 1) return;
     const interval = setInterval(() => {
       angleRef.current = angleState;
       positionRef.current = positionState;
@@ -43,14 +43,26 @@ export default function Home() {
       const bx = directionAI[2][1];
       const ly = directionAI[3][0];
       const lx = directionAI[3][1];
-      for (let ky = 0; ky < 11; ky++) {
-        for (let kx = 0; kx < 13; kx++) {
+      for (let ky = 0; ky < 15; ky++) {
+        for (let kx = 0; kx < 19; kx++) {
           if (
             positionState[ky][kx] === 1 &&
             boardState[ky + ty][kx + tx] === 1 &&
             boardState[ky + ry][kx + rx] === 0 &&
             boardState[ky + by][kx + bx] === 1
           ) {
+            newMazeBoard[ky][kx] = 2;
+            newPositionAI[ky][kx] = 0;
+            newPositionAI[ky + ry][kx + rx] = 1;
+            newAngleAI;
+          }
+          if (
+            positionState[ky][kx] === 1 &&
+            boardState[ky + ty][kx + tx] === 1 &&
+            boardState[ky + ry][kx + rx] === 2 &&
+            boardState[ky + by][kx + bx] === 1
+          ) {
+            newMazeBoard[ky][kx] = 0;
             newPositionAI[ky][kx] = 0;
             newPositionAI[ky + ry][kx + rx] = 1;
             newAngleAI;
@@ -72,6 +84,18 @@ export default function Home() {
             boardState[ky + ry][kx + rx] === 1 &&
             boardState[ky + by][kx + bx] === 1
           ) {
+            newMazeBoard[ky][kx] = 2;
+            newPositionAI[ky][kx] = 0;
+            newPositionAI[ky + ty][kx + tx] = 1;
+            newAngleAI--;
+          }
+          if (
+            positionState[ky][kx] === 1 &&
+            boardState[ky + ty][kx + tx] === 2 &&
+            boardState[ky + ry][kx + rx] === 1 &&
+            boardState[ky + by][kx + bx] === 1
+          ) {
+            newMazeBoard[ky][kx] = 0;
             newPositionAI[ky][kx] = 0;
             newPositionAI[ky + ty][kx + tx] = 1;
             newAngleAI--;
@@ -82,6 +106,18 @@ export default function Home() {
             boardState[ky + ry][kx + rx] === 1 &&
             boardState[ky + by][kx + bx] === 0
           ) {
+            newMazeBoard[ky][kx] = 2;
+            newPositionAI[ky][kx] = 0;
+            newPositionAI[ky + by][kx + bx] = 1;
+            newAngleAI++;
+          }
+          if (
+            positionState[ky][kx] === 1 &&
+            boardState[ky + ty][kx + tx] === 1 &&
+            boardState[ky + ry][kx + rx] === 1 &&
+            boardState[ky + by][kx + bx] === 2
+          ) {
+            newMazeBoard[ky][kx] = 0;
             newPositionAI[ky][kx] = 0;
             newPositionAI[ky + by][kx + bx] = 1;
             newAngleAI++;
@@ -92,6 +128,29 @@ export default function Home() {
             boardState[ky + ry][kx + rx] === 0 &&
             boardState[ky + by][kx + bx] === 1
           ) {
+            newMazeBoard[ky][kx] = 2;
+            newPositionAI[ky][kx] = 0;
+            newPositionAI[ky + ty][kx + tx] = 1;
+            newAngleAI--;
+          }
+          if (
+            positionState[ky][kx] === 1 &&
+            boardState[ky + ty][kx + tx] === 2 &&
+            boardState[ky + ry][kx + rx] === 0 &&
+            boardState[ky + by][kx + bx] === 1
+          ) {
+            newMazeBoard[ky][kx] = 0;
+            newPositionAI[ky][kx] = 0;
+            newPositionAI[ky + ty][kx + tx] = 1;
+            newAngleAI--;
+          }
+          if (
+            positionState[ky][kx] === 1 &&
+            boardState[ky + ty][kx + tx] === 0 &&
+            boardState[ky + ry][kx + rx] === 2 &&
+            boardState[ky + by][kx + bx] === 1
+          ) {
+            newMazeBoard[ky][kx] = 2;
             newPositionAI[ky][kx] = 0;
             newPositionAI[ky + ty][kx + tx] = 1;
             newAngleAI--;
@@ -102,6 +161,29 @@ export default function Home() {
             boardState[ky + ry][kx + rx] === 1 &&
             boardState[ky + by][kx + bx] === 0
           ) {
+            newMazeBoard[ky][kx] = 2;
+            newPositionAI[ky][kx] = 0;
+            newPositionAI[ky + ty][kx + tx] = 1;
+            newAngleAI--;
+          }
+          if (
+            positionState[ky][kx] === 1 &&
+            boardState[ky + ty][kx + tx] === 2 &&
+            boardState[ky + ry][kx + rx] === 1 &&
+            boardState[ky + by][kx + bx] === 0
+          ) {
+            newMazeBoard[ky][kx] = 0;
+            newPositionAI[ky][kx] = 0;
+            newPositionAI[ky + ty][kx + tx] = 1;
+            newAngleAI--;
+          }
+          if (
+            positionState[ky][kx] === 1 &&
+            boardState[ky + ty][kx + tx] === 0 &&
+            boardState[ky + ry][kx + rx] === 1 &&
+            boardState[ky + by][kx + bx] === 2
+          ) {
+            newMazeBoard[ky][kx] = 2;
             newPositionAI[ky][kx] = 0;
             newPositionAI[ky + ty][kx + tx] = 1;
             newAngleAI--;
@@ -112,6 +194,27 @@ export default function Home() {
             boardState[ky + ry][kx + rx] === 0 &&
             boardState[ky + by][kx + bx] === 0
           ) {
+            newMazeBoard[ky][kx] = 2;
+            newPositionAI[ky][kx] = 0;
+            newPositionAI[ky + ry][kx + rx] = 1;
+          }
+          if (
+            positionState[ky][kx] === 1 &&
+            boardState[ky + ty][kx + tx] === 1 &&
+            boardState[ky + ry][kx + rx] === 2 &&
+            boardState[ky + by][kx + bx] === 0
+          ) {
+            newMazeBoard[ky][kx] = 0;
+            newPositionAI[ky][kx] = 0;
+            newPositionAI[ky + ry][kx + rx] = 1;
+          }
+          if (
+            positionState[ky][kx] === 1 &&
+            boardState[ky + ty][kx + tx] === 1 &&
+            boardState[ky + ry][kx + rx] === 0 &&
+            boardState[ky + by][kx + bx] === 2
+          ) {
+            newMazeBoard[ky][kx] = 2;
             newPositionAI[ky][kx] = 0;
             newPositionAI[ky + ry][kx + rx] = 1;
           }
@@ -121,11 +224,46 @@ export default function Home() {
             boardState[ky + ry][kx + rx] === 0 &&
             boardState[ky + by][kx + bx] === 0
           ) {
+            newMazeBoard[ky][kx] = 2;
+            newPositionAI[ky][kx] = 0;
+            newPositionAI[ky + ty][kx + tx] = 1;
+            newAngleAI--;
+          }
+          if (
+            positionState[ky][kx] === 1 &&
+            boardState[ky + ty][kx + tx] === 2 &&
+            boardState[ky + ry][kx + rx] === 0 &&
+            boardState[ky + by][kx + bx] === 0
+          ) {
+            newMazeBoard[ky][kx] = 0;
+            newPositionAI[ky][kx] = 0;
+            newPositionAI[ky + ty][kx + tx] = 1;
+            newAngleAI--;
+          }
+          if (
+            positionState[ky][kx] === 1 &&
+            boardState[ky + ty][kx + tx] === 0 &&
+            boardState[ky + ry][kx + rx] === 0 &&
+            boardState[ky + by][kx + bx] === 2
+          ) {
+            newMazeBoard[ky][kx] = 2;
+            newPositionAI[ky][kx] = 0;
+            newPositionAI[ky + ty][kx + tx] = 1;
+            newAngleAI--;
+          }
+          if (
+            positionState[ky][kx] === 1 &&
+            boardState[ky + ty][kx + tx] === 0 &&
+            boardState[ky + ry][kx + rx] === 2 &&
+            boardState[ky + by][kx + bx] === 0
+          ) {
+            newMazeBoard[ky][kx] = 2;
             newPositionAI[ky][kx] = 0;
             newPositionAI[ky + ty][kx + tx] = 1;
             newAngleAI--;
           }
           if (positionState[ky][kx] === 1 && boardState[ky + ry][kx + rx] === 3) {
+            newMazeBoard[ky][kx] = 2;
             newPositionAI[ky][kx] = 0;
             newPositionAI[ky + ry][kx + rx] = 1;
             newMazeBoard[ky + ry][kx + rx] = 4;

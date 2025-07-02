@@ -10,8 +10,8 @@
   }
 
   .board {
-    width: 520px;
-    height: 440px;
+    width: 760px;
+    height: 600px;
     background-color: #fff;
   }
 
@@ -79,8 +79,8 @@
   }
 
   .board {
-    width: 39vh;
-    height: 33vh;
+    width: 38vh;
+    height: 30vh;
     background-color: #fff;
   }
 
@@ -89,8 +89,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 3vh;
-    height: 3vh;
+    width: 2vh;
+    height: 2vh;
     background-color: #000;
   }
 

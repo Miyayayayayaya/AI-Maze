@@ -9,8 +9,8 @@ export const makeWallFunction = (mazeBoard: number[][]) => {
   const countWall: [number, number][] = [];
   const checkWall = new Set<string>();
   const storage: [number, number][] = [];
-  for (let y = 1; y < 10; y++) {
-    for (let x = 1; x < 12; x++) {
+  for (let y = 1; y < 14; y++) {
+    for (let x = 1; x < 18; x++) {
       if (mazeBoard[y][x] === 1) {
         countWall.push([y, x]);
       }
