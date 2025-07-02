@@ -274,7 +274,7 @@ export default function Home() {
       setMazeBoard(newMazeBoard);
       setAngleAI(newAngleAI);
       setPositionAI(newPositionAI);
-    }, speedState);
+    }, speedState * 1000);
     return () => clearInterval(interval);
   }, [
     angleState,
