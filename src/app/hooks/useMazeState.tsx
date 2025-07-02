@@ -41,7 +41,7 @@ export const useMaze = () => {
   const [positionAI, setPositionAI] = useState<number[][]>(initialPositionAI);
   const [gameStart, setGameStart] = useState(false);
   const [angleAI, setAngleAI] = useState(40);
-  const [speedCustom, setSpeedCustom] = useState(1);
+  const [speedCustom, setSpeedCustom] = useState(1000);
   const clickAIRun = () => {
     console.log('AIRun押される');
     const newPositionAI = structuredClone(positionAI);

@@ -17,7 +17,7 @@ export default function SpeedCustom({ speedCustom, setSpeedCustom }: SpeedCustom
       }}
     >
       <label>
-        速度（秒）
+        速度（1/1000秒）
         <input type="number" name="speed" defaultValue={speedCustom} min={1} />
       </label>
       <button type="submit">更新</button>
